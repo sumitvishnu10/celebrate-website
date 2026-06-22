@@ -1,0 +1,153 @@
+.categories-section {
+  background: transparent;
+  padding: 2rem 0;
+}
+
+.categories-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding-bottom: 1.5rem;
+}
+
+.cat-nav {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+}
+
+.cat-nav a {
+  display: flex;
+  align-items: center;
+}
+
+.cat-title h2 {
+  font-size: 2rem;
+  color: var(--neutral-dark);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.categories-slider-container {
+  position: relative;
+}
+
+.categories-slider {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 2rem;
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+}
+
+.categories-slider::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+.category-card {
+  min-width: 280px;
+  background: var(--white);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.03);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.category-img-container {
+  width: 100%;
+  height: 200px;
+  padding: 0.5rem;
+}
+
+.category-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+.category-info {
+  padding: 1.5rem 1rem;
+}
+
+.category-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.category-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--secondary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary);
+}
+
+.category-title-row h4 {
+  font-size: 1.1rem;
+  color: var(--neutral-dark);
+  margin: 0;
+}
+
+.category-info p {
+  font-size: 0.8rem;
+  color: var(--neutral-gray);
+  margin-left: 2.75rem; /* Align with text, skipping icon */
+}
+
+.slider-nav-btn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.prev-btn {
+  left: -20px;
+}
+
+.next-btn {
+  right: -20px;
+}
+
+.slider-nav-btn:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .categories-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
