@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Sparkles } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
+  const [navState, setNavState] = useState('top'); // 'top', 'hidden', 'scrolled'
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const eventsSection = document.getElementById('events');
+
+      if (window.scrollY < 50) {
+        setNavState('top');
+      } else if (eventsSection) {
+        // Get the position of the events section relative to the viewport
+        const rect = eventsSection.getBoundingClientRect();
+
+        // When the text/section arrives in the top area of the screen, show the navbar
+        if (rect.top <= 150) {
+          setNavState('scrolled');
+        } else {
+          setNavState('hidden');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on mount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${navState}`}>
       <div className="container navbar-container">
         <div className="navbar-logo">
           <div className="logo-text-wrapper">
@@ -17,8 +43,8 @@ const Navbar = () => {
         <div className="navbar-links">
           <a href="#how-it-works">How It Works</a>
           <a href="#events">Explore Events</a>
-          <a href="#planners">For Planners</a>
-          <a href="#pricing">Pricing</a>
+          <a href="#services">Our Services</a>
+          <a href="#contact">Pricing</a>
           <a href="#about">About Us</a>
         </div>
 

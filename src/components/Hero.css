@@ -220,7 +220,8 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 12rem 0 2rem; /* Pushed content down to avoid busy floral top */
+    padding: 12rem 0 2rem;
+    /* Pushed content down to avoid busy floral top */
     align-items: flex-start;
   }
 
@@ -231,12 +232,13 @@
 
   .text-accent {
     font-size: 3rem !important;
-    text-shadow: none; /* Removed shadow in favor of highlight */
+    text-shadow: none;
+    /* Removed shadow in favor of highlight */
     background: rgba(255, 255, 255, 0.85);
     padding: 0 0.5rem;
     border-radius: 0.5rem;
     display: inline-block;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 
   .hero-subtitle {

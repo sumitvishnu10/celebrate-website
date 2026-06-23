@@ -3,7 +3,7 @@ import './CTABanner.css';
 
 const CTABanner = () => {
   return (
-    <section className="section cta-banner-section snap-section" id="cta">
+    <section className="section cta-banner-section" id="cta">
       <div className="container">
         <div className="cta-banner-card reveal reveal-zoom">
           <div className="cta-content reveal reveal-up reveal-delay-200">

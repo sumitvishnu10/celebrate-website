@@ -1,17 +1,24 @@
 import React, { useRef } from 'react';
 import { ArrowRight, ArrowLeft, Heart, Gift, Camera, Briefcase, Sparkles, Building, Baby } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import './Categories.css';
 
 const Categories = () => {
   const sliderRef = useRef(null);
+  const headerRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start 180px", "start 80px"]
+  });
+  const headerOpacityOut = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   const scroll = (direction) => {
     if (sliderRef.current) {
       const scrollAmount = direction === 'left' ? -350 : 350;
       const start = sliderRef.current.scrollLeft;
       const target = start + scrollAmount;
-      const duration = 250; 
+      const duration = 250;
       const startTime = performance.now();
 
       const animateScroll = (currentTime) => {
@@ -37,29 +44,78 @@ const Categories = () => {
     { name: "Corporate Events", desc: "Professional. Impactful.", icon: <Building size={20} />, img: "/assets/category_corporate.png" }
   ];
 
+  const titleText = "Every Celebration, Beautifully Planned";
+  const words = titleText.split(" ");
+  
+  const titleContainerVariants = {
+    hidden: { 
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const wordVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20, 
+      scale: 0.85,
+      transition: { duration: 0.5, ease: "easeOut" }
+    },
+    visible: {
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
   return (
     <section className="section categories-section snap-section" id="events">
       <div className="container">
-        
-        <motion.div 
+
+        <motion.div
           className="categories-header"
-          initial={{ opacity: 0, y: 30 }}
+          ref={headerRef}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ type: "spring", stiffness: 80, damping: 15 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ opacity: headerOpacityOut }}
         >
           <div className="cat-nav left">
             Explore by Event Type <Sparkles size={16} className="text-accent ml-2" />
           </div>
-          <div className="cat-title">
-            <h2 className="font-serif">Every Celebration, Beautifully Planned</h2>
-          </div>
+          <motion.div 
+            className="cat-title"
+            variants={titleContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.1 }}
+          >
+            <h2 className="font-serif" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.2em' }}>
+              {words.map((word, index) => (
+                <motion.span key={index} variants={wordVariants} style={{ display: 'inline-block' }}>
+                  {word}
+                </motion.span>
+              ))}
+            </h2>
+          </motion.div>
           <div className="cat-nav right">
             <a href="#">View All Events <ArrowRight size={16} className="ml-2" /></a>
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="categories-slider-container"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -69,7 +125,7 @@ const Categories = () => {
           <button className="slider-nav-btn prev-btn" onClick={() => scroll('left')} aria-label="Scroll left">
             <ArrowLeft size={20} />
           </button>
-          
+
           <div className="categories-slider" ref={sliderRef}>
             {categories.map((cat, index) => (
               <div className="category-card" key={index}>
@@ -90,6 +146,20 @@ const Categories = () => {
           <button className="slider-nav-btn next-btn" onClick={() => scroll('right')} aria-label="Scroll right">
             <ArrowRight size={20} />
           </button>
+        </motion.div>
+
+        <motion.div 
+          className="categories-footer text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          style={{ marginTop: '4rem' }}
+        >
+          <p className="text-neutral-gray" style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
+            Don't see your specific event type? Our expert planners can customize a unique experience just for you.
+          </p>
+          <a href="#contact" className="btn btn-secondary cta-outline-btn">Request Custom Event</a>
         </motion.div>
 
       </div>

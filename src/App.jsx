@@ -37,6 +37,23 @@ function App() {
       infinite: false,
     });
 
+    // Globally intercept anchor links to use Lenis smooth scrolling
+    const handleAnchorClick = (e) => {
+      const target = e.target.closest('a');
+      if (target && target.hash && target.hash.length > 1) {
+        try {
+          const el = document.querySelector(target.hash);
+          if (el) {
+            e.preventDefault();
+            lenis.scrollTo(el, { offset: -80, duration: 1.5 });
+          }
+        } catch (err) {
+          // Ignore invalid selectors like "#"
+        }
+      }
+    };
+    document.addEventListener('click', handleAnchorClick);
+
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
@@ -59,6 +76,7 @@ function App() {
 
     return () => {
       lenis.destroy();
+      document.removeEventListener('click', handleAnchorClick);
       revealElements.forEach((el) => observer.unobserve(el));
     };
   }, []);

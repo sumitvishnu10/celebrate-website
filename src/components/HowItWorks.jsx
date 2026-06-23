@@ -30,8 +30,8 @@ const HowItWorks = () => {
   return (
     <section className="section how-it-works-section snap-section" id="how-it-works">
       <div className="container">
-        
-        <motion.div 
+
+        <motion.div
           className="section-header"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ const HowItWorks = () => {
         </motion.div>
 
         <div className="steps-container">
-          <motion.div 
+          <motion.div
             className="connecting-line"
             initial={{ scaleX: 0, opacity: 0 }}
             whileInView={{ scaleX: 1, opacity: 1 }}
@@ -51,10 +51,10 @@ const HowItWorks = () => {
             transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
             style={{ transformOrigin: "left" }}
           ></motion.div>
-          
+
           {steps.map((step, index) => (
-            <motion.div 
-              className="step-card" 
+            <motion.div
+              className="step-card"
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}

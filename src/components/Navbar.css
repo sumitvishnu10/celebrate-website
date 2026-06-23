@@ -1,11 +1,32 @@
 .navbar {
-  background: transparent;
   padding: 1.5rem 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar.top {
+  background: transparent;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.navbar.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem 0;
+  box-shadow: 0 4px 20px rgba(74, 27, 107, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .navbar-container {
@@ -82,7 +103,7 @@
   background: var(--white);
   color: var(--neutral-dark);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0.3rem 0.6rem;
+  padding: 0.4rem 1rem;
   font-size: 0.85rem;
   font-weight: 600;
   display: flex;
@@ -110,32 +131,33 @@
     padding: 0.2rem 0.8rem;
     border-radius: 1rem;
     margin-left: -0.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 
   .logo-text-main {
     font-size: 2.2rem;
-    text-shadow: none; /* Removed shadow in favor of highlight */
+    text-shadow: none;
+    /* Removed shadow in favor of highlight */
   }
-  
+
   .logo-sparkle {
     margin-top: -10px;
     width: 18px;
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 1));
   }
-  
+
   .logo-subtitle {
     font-size: 0.5rem;
     font-weight: 700;
     text-shadow: 0 1px 5px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 1);
   }
-  
+
   .navbar-actions {
     padding: 0;
   }
-  
+
   .btn-google {
-    padding: 0.2rem 0.4rem;
+    padding: 0.3rem 0.75rem;
     font-size: 0.75rem;
   }
 }
