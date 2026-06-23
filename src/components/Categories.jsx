@@ -1,38 +1,16 @@
 import React, { useRef } from 'react';
-import { ArrowRight, ArrowLeft, Heart, Gift, Camera, Briefcase, Sparkles, Building, Baby } from 'lucide-react';
+import { ArrowRight, Heart, Gift, Camera, Sparkles, Building, Baby } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import './Categories.css';
 
 const Categories = () => {
-  const sliderRef = useRef(null);
   const headerRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: headerRef,
     offset: ["start 180px", "start 80px"]
   });
   const headerOpacityOut = useTransform(scrollYProgress, [0, 1], [1, 0]);
-
-  const scroll = (direction) => {
-    if (sliderRef.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350;
-      const start = sliderRef.current.scrollLeft;
-      const target = start + scrollAmount;
-      const duration = 250;
-      const startTime = performance.now();
-
-      const animateScroll = (currentTime) => {
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        sliderRef.current.scrollLeft = start + (target - start) * easeOut;
-        if (timeElapsed < duration) {
-          requestAnimationFrame(animateScroll);
-        }
-      };
-      requestAnimationFrame(animateScroll);
-    }
-  };
 
   const categories = [
     { name: "Weddings", desc: "Make your big day magical", icon: <Heart size={20} />, img: "/assets/mockup_hero_arch.png" },
@@ -41,14 +19,19 @@ const Categories = () => {
     { name: "Anniversaries", desc: "Cherish every milestone", icon: <Camera size={20} />, img: "/assets/mockup_category_anniversaries.png" },
     { name: "Naming Ceremonies", desc: "Beautiful beginnings", icon: <Heart size={20} />, img: "/assets/mockup_category_naming.png" },
     { name: "Baby Showers", desc: "Welcome the little one", icon: <Baby size={20} />, img: "/assets/mockup_category_baby_shower.png" },
-    { name: "Corporate Events", desc: "Professional. Impactful.", icon: <Building size={20} />, img: "/assets/category_corporate.png" }
+    { name: "Corporate", desc: "Professional. Impactful.", icon: <Building size={20} />, img: "/assets/category_corporate.png" }
   ];
+
+  // Math for seamless loop (280px card + 32px gap)
+  const cardWidth = 280;
+  const gap = 32;
+  const infiniteCategories = [...categories, ...categories];
 
   const titleText = "Every Celebration, Beautifully Planned";
   const words = titleText.split(" ");
-  
+
   const titleContainerVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       transition: {
         staggerChildren: 0.05,
@@ -65,15 +48,15 @@ const Categories = () => {
   };
 
   const wordVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20, 
+    hidden: {
+      opacity: 0,
+      y: 20,
       scale: 0.85,
       transition: { duration: 0.5, ease: "easeOut" }
     },
     visible: {
-      opacity: 1, 
-      y: 0, 
+      opacity: 1,
+      y: 0,
       scale: 1,
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
@@ -95,7 +78,7 @@ const Categories = () => {
           <div className="cat-nav left">
             Explore by Event Type <Sparkles size={16} className="text-accent ml-2" />
           </div>
-          <motion.div 
+          <motion.div
             className="cat-title"
             variants={titleContainerVariants}
             initial="hidden"
@@ -115,26 +98,23 @@ const Categories = () => {
           </div>
         </motion.div>
 
+        {/* Seamless Infinite Carousel */}
         <motion.div
-          className="categories-slider-container"
+          className="event-carousel-container"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ type: "spring", stiffness: 60, damping: 15, delay: 0.1 }}
         >
-          <button className="slider-nav-btn prev-btn" onClick={() => scroll('left')} aria-label="Scroll left">
-            <ArrowLeft size={20} />
-          </button>
-
-          <div className="categories-slider" ref={sliderRef}>
-            {categories.map((cat, index) => (
-              <div className="category-card" key={index}>
-                <div className="category-img-container">
-                  <img src={cat.img} alt={cat.name} className="category-img" />
+          <div className="event-carousel-track">
+            {infiniteCategories.map((cat, index) => (
+              <div className="event-card" key={index}>
+                <div className="event-img-container">
+                  <img src={cat.img} alt={cat.name} className="event-img" />
                 </div>
-                <div className="category-info">
-                  <div className="category-title-row">
-                    <div className="category-icon text-accent">{cat.icon}</div>
+                <div className="event-info">
+                  <div className="event-title-row">
+                    <div className="event-icon text-accent">{cat.icon}</div>
                     <h4>{cat.name}</h4>
                   </div>
                   <p>{cat.desc}</p>
@@ -142,19 +122,15 @@ const Categories = () => {
               </div>
             ))}
           </div>
-
-          <button className="slider-nav-btn next-btn" onClick={() => scroll('right')} aria-label="Scroll right">
-            <ArrowRight size={20} />
-          </button>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="categories-footer text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ marginTop: '4rem' }}
+          style={{ marginTop: '2rem' }}
         >
           <p className="text-neutral-gray" style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
             Don't see your specific event type? Our expert planners can customize a unique experience just for you.
