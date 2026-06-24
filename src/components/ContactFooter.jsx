@@ -7,13 +7,13 @@ const ContactFooter = () => {
     <footer className="footer section">
       <div className="container">
         <div className="footer-grid">
-
+          
           <div className="footer-brand">
             <div className="logo-text">
               <h2>Celebrate</h2>
               <Sparkles className="logo-sparkle" size={14} />
             </div>
-            <p className="footer-subtitle">Perfect Events.<br />Perfectly Planned.</p>
+            <p className="footer-subtitle">Perfect Events.<br/>Perfectly Planned.</p>
             <div className="social-icons">
               <a href="#" className="social-icon">IG</a>
               <a href="#" className="social-icon">FB</a>
@@ -21,7 +21,7 @@ const ContactFooter = () => {
               <a href="#" className="social-icon">YT</a>
             </div>
           </div>
-
+          
           <div className="footer-links">
             <h4>For Clients</h4>
             <ul>
@@ -33,7 +33,7 @@ const ContactFooter = () => {
           </div>
 
           <div className="footer-links">
-            <h4>our services</h4>
+            <h4>For Planners</h4>
             <ul>
               <li><a href="#">Join as Planner</a></li>
               <li><a href="#">Planner Benefits</a></li>
@@ -41,7 +41,7 @@ const ContactFooter = () => {
               <li><a href="#">Resources</a></li>
             </ul>
           </div>
-
+          
           <div className="footer-links">
             <h4>Company</h4>
             <ul>
@@ -62,7 +62,7 @@ const ContactFooter = () => {
           </div>
 
         </div>
-
+        
         <div className="footer-bottom">
           <p>&copy; 2024 Celebrate. All rights reserved.</p>
         </div>
